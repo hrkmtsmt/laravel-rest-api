@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Root\Todo\Repository;
 
-use Root\Todo\Entity\TodoEntity;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+
+use Root\Todo\Entity\TodoEntity;
 
 class TodoRepository extends EntityRepository
 {

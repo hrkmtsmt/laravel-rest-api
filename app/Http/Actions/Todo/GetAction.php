@@ -5,23 +5,26 @@ declare(strict_types=1);
 namespace App\Http\Actions\Todo;
 
 use App\Http\Controllers\Controller;
-//use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
-use Root\Todo\Repository\TodoRepository;
+use Root\Todo\Entity\TodoEntity;
 
 class GetAction extends Controller
 {
-    private TodoRepository $repository;
-//    private EntityManger $entityManager;
+    private EntityManagerInterface $entityManager;
 
-    public function __construct(TodoRepository $repository /*, EntityManagerInterface $entityManager */)
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->repository = $repository;
-//        $this->entityManager = $entityManager;
+        $this->entityManager = $entityManager;
     }
 
     public function __invoke(): array
     {
-        return ['message' => 'Hello World!'];
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+
+        $queryBuilder->select('t.id')
+            ->from(TodoEntity::class, 't');
+
+        return $queryBuilder->getQuery()->getResult();
     }
 }
