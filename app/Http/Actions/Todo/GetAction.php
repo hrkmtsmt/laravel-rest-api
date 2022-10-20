@@ -24,8 +24,6 @@ class GetAction extends Controller
 
         $queryBuilder->select('t.id', 't.title', 't.isCompleted')->from(TodoEntity::class, 't');
 
-        $result = $queryBuilder->getQuery()->getResult();
-
-        return $result;
+        return $queryBuilder->getQuery()->getResult();
     }
 }
