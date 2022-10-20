@@ -42,4 +42,19 @@ class TodoEntity
     {
         return $this->isCompleted;
     }
+
+    public function setId(): void
+    {
+        $this->id = 0;
+    }
+
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    public function setIsCompleted(bool $isCompleted): void
+    {
+        $this->isCompleted = $isCompleted;
+    }
 }
