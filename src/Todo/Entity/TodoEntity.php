@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Todo\Entity;
+namespace Root\Todo\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
