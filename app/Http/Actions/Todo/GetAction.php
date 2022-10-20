@@ -22,9 +22,10 @@ class GetAction extends Controller
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
 
-        $queryBuilder->select('t.id')
-            ->from(TodoEntity::class, 't');
+        $queryBuilder->select('t.id', 't.title', 't.isCompleted')->from(TodoEntity::class, 't');
 
-        return $queryBuilder->getQuery()->getResult();
+        $result = $queryBuilder->getQuery()->getResult();
+
+        return $result;
     }
 }

@@ -14,17 +14,17 @@ class TodoEntity
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
+     * @ORM\Column(name="id", type="integer")
      */
     private int $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(name="title", type="string")
      */
     private string $title;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(name="isCompleted", type="boolean")
      */
     private bool $isCompleted;
 
