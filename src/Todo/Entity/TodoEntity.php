@@ -57,9 +57,20 @@ class TodoEntity
         return $this;
     }
 
-    public function setId(): void
+    public function createId(): void
     {
         $this->id = 0;
+    }
+
+    public function createCreatedAt(): void
+    {
+        $dateTimeImmutable = new \DateTimeImmutable();
+        $this->createdAt = $dateTimeImmutable->format('c');
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
     public function setTitle(string $title): void
@@ -72,9 +83,16 @@ class TodoEntity
         $this->isCompleted = $isCompleted;
     }
 
-    public function setCreatedAt(): void
+    public function setCreatedAt(string $createdAt): void
     {
-        $dateTimeImmutable = new \DateTimeImmutable();
-        $this->createdAt = $dateTimeImmutable->format('Y-m-d');
+        $this->createdAt = $createdAt;
+    }
+
+    public function setTodo($todo, $request): void
+    {
+        $this->setId($todo['id']);
+        $this->setTitle($request['title']);
+        $this->setIsCompleted($request['isCompleted']);
+        $this->setCreatedAt($todo['createdAt']);
     }
 }

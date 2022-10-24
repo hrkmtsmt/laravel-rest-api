@@ -26,10 +26,10 @@ class PostAction extends Controller
         $title = $request->input('title');
         $isCompleted = $request->input('isCompleted');
 
-        $this->todo->setId();
+        $this->todo->createId();
         $this->todo->setTitle($title);
         $this->todo->setIsCompleted($isCompleted);
-        $this->todo->setCreatedAt();
+        $this->todo->createCreatedAt();
 
         $this->entityManager->persist($this->todo);
 
