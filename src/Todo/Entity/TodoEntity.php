@@ -28,19 +28,33 @@ class TodoEntity
      */
     private bool $isCompleted;
 
-    public function getId(): int
+    /**
+     * @ORM\Column(name="createdAt", type="string")
+     */
+    private string $createdAt;
+
+    public function getId(): TodoEntity
     {
-        return $this->id;
+        $this->id;
+        return $this;
     }
 
-    public function getTitle(): string
+    public function getTitle(): TodoEntity
     {
-        return $this->title;
+        $this->title;
+        return $this;
     }
 
-    public function getIsCompleted(): bool
+    public function getIsCompleted(): TodoEntity
     {
-        return $this->isCompleted;
+        $this->isCompleted;
+        return $this;
+    }
+
+    public function getCreatedAt(): TodoEntity
+    {
+        $this->createdAt;
+        return $this;
     }
 
     public function setId(): void
@@ -56,5 +70,11 @@ class TodoEntity
     public function setIsCompleted(bool $isCompleted): void
     {
         $this->isCompleted = $isCompleted;
+    }
+
+    public function setCreatedAt(): void
+    {
+        $dateTimeImmutable = new \DateTimeImmutable();
+        $this->createdAt = $dateTimeImmutable->format('Y-m-d');
     }
 }
