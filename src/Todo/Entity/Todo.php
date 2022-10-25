@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="todo")
  */
-class TodoEntity
+class Todo
 {
     /**
      * @ORM\Id
@@ -33,66 +33,70 @@ class TodoEntity
      */
     private string $createdAt;
 
-    public function getId(): TodoEntity
+    public function getId(): int
     {
-        $this->id;
-        return $this;
+        return $this->id;
     }
 
-    public function getTitle(): TodoEntity
+    public function getTitle(): string
     {
-        $this->title;
-        return $this;
+        return $this->title;
     }
 
-    public function getIsCompleted(): TodoEntity
+    public function getIsCompleted(): bool
     {
-        $this->isCompleted;
-        return $this;
+        return $this->isCompleted;
     }
 
-    public function getCreatedAt(): TodoEntity
+    public function getCreatedAt(): string
     {
-        $this->createdAt;
-        return $this;
+        return $this->createdAt;
     }
 
-    public function createId(): void
+    public function createId(): Todo
     {
         $this->id = 0;
+        return $this;
     }
 
-    public function createCreatedAt(): void
+    public function createCreatedAt(): Todo
     {
         $dateTimeImmutable = new \DateTimeImmutable();
         $this->createdAt = $dateTimeImmutable->format('c');
+        return $this;
     }
 
-    public function setId(int $id): void
+    public function setId(int $id): Todo
     {
         $this->id = $id;
+        return $this;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle(string $title): Todo
     {
         $this->title = $title;
+        return $this;
     }
 
-    public function setIsCompleted(bool $isCompleted): void
+    public function setIsCompleted(bool $isCompleted): Todo
     {
         $this->isCompleted = $isCompleted;
+        return $this;
     }
 
-    public function setCreatedAt(string $createdAt): void
+    public function setCreatedAt(string $createdAt): Todo
     {
         $this->createdAt = $createdAt;
+        return $this;
     }
 
-    public function setTodo($todo, $request): void
+    public function setTodo($todo, string $title, bool $isCompleted): Todo
     {
         $this->setId($todo['id']);
-        $this->setTitle($request['title']);
-        $this->setIsCompleted($request['isCompleted']);
+        $this->setTitle($title);
+        $this->setIsCompleted($isCompleted);
         $this->setCreatedAt($todo['createdAt']);
+
+        return $this;
     }
 }
