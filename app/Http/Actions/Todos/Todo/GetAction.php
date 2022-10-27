@@ -15,14 +15,20 @@ class GetAction extends Controller
     public function __construct(private EntityManagerInterface $entityManager, private Todo $todo)
     {}
 
-    public function __invoke(int $id): Response
+    public function __invoke(int $todoId)
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $queryBuilder->select('t.id', 't.title', 't.isCompleted', 't.createdAt')
             ->from(Todo::class, 't')
-            ->where("t.id = $id");
+            ->where("t.id = $todoId");
 
-        return $queryBuilder->getQuery()->getResult()[0];
+        $todo = $queryBuilder->getQuery()->getResult();
+
+        if (empty($todo)) {
+            return ['message' => "Id $todoId Todo is not found."];
+        }
+
+        return $todo[0];
     }
 
 }

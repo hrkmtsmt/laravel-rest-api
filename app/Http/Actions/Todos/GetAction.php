@@ -13,10 +13,9 @@ use Root\Todo\Entity\Todo;
 class GetAction extends Controller
 {
     public function __construct(private EntityManagerInterface $entityManager)
-    {
-    }
+    {}
 
-    public function __invoke(): Response
+    public function __invoke()
     {
         $queryBuilder = $this->entityManager->createQueryBuilder('t');
         $queryBuilder->select('t.id', 't.title', 't.isCompleted', 't.createdAt')
