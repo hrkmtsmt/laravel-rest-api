@@ -6,6 +6,7 @@ namespace App\Http\Actions\Todos;
 
 use App\Http\Controllers\Controller;
 use Doctrine\ORM\EntityManagerInterface;
+use Illuminate\Http\Response;
 
 use Root\Todo\Entity\Todo;
 
@@ -15,11 +16,11 @@ class GetAction extends Controller
     {
     }
 
-    public function __invoke(): array
+    public function __invoke(): Response
     {
-        $queryBuilder = $this->entityManager->createQueryBuilder();
-
-        $queryBuilder->select('t')->from(Todo::class, 't');
+        $queryBuilder = $this->entityManager->createQueryBuilder('t');
+        $queryBuilder->select('t.id', 't.title', 't.isCompleted', 't.createdAt')
+            ->from(Todo::class, 't');
 
         return $queryBuilder->getQuery()->getResult();
     }

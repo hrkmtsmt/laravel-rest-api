@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 
 use Root\Todo\Entity\Todo;
 
-class PutAction extends Controller
+class PatchAction extends Controller
 {
     public function __construct(private EntityManagerInterface $entityManager, private Todo $todo)
     {}
@@ -19,23 +19,14 @@ class PutAction extends Controller
     public function __invoke(Request $request, int $todoId)
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
-
-        $queryBuilder->select('t.id')
+        $queryBuilder->select('t.id', 't.title', 't.isCompleted', 't.createdAt')
             ->from(Todo::class, 't')
             ->where("t.id = $todoId");
 
         $_todoId = $queryBuilder->getQuery()->getResult();
 
         if (empty($_todoId)) {
-            $this->todo->createId()
-                ->setTitle('New Todo')
-                ->setIsCompleted(false)
-                ->createCreatedAt();
-
-            $this->entityManager->persist($this->todo);
-            $this->entityManager->flush();
-
-            return ['message' => 'Created new resource!'];
+            return ['message' => "Id $todoId is not found."];
         }
 
         $title = $request->input('title');
@@ -48,6 +39,7 @@ class PutAction extends Controller
 
         $queryBuilder->getQuery()->execute();
 
-        return ['message' => 'Updated todo!'];
+        return ['message' => "Update id $todoId Todo!"];
+
     }
 }
